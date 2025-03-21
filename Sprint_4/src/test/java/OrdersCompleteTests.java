@@ -51,7 +51,7 @@ public class OrdersCompleteTests {
     }
 
     @Test
-    public void ordersCompleteTest() {
+    public void ordersCompleteTestUp() { //Проверка теста с первой точкой входа верхняя кнопка заказать
         homePageScooter.open();
         homePageScooter.goToOrderUp();
         orderPageScooter.inputName(name);
@@ -73,8 +73,34 @@ public class OrdersCompleteTests {
         orderPageScooter.modalWindowAcceptOrder();
         orderPageScooter.buttonYes();
         Assert.assertThat("Проверка оформления заказа",orderPageScooter.labelOrderCompleteGetText(), CoreMatchers.containsString("Заказ оформлен"));
-
     }
+
+    @Test
+    public void ordersCompleteTestDown() { //Проверка теста со второй точкой входа нижняя кнопка заказать
+        homePageScooter.open();
+        homePageScooter.goToOrderDown();
+        orderPageScooter.inputName(name);
+        orderPageScooter.inputSurname(surname);
+        orderPageScooter.inputAddressOrder(address);
+        orderPageScooter.dropDownMetro();
+        orderPageScooter.clickMetroValue();
+        orderPageScooter.inputTelephone(telephone);
+        orderPageScooter.buttonNext();
+        orderPageScooter.orderWaitPage();
+        orderPageScooter.whenBringItScooter(dateBring);
+        orderPageScooter.datePickerKiller();
+        orderPageScooter.dropDownRent();
+        orderPageScooter.selectDropDownRent();
+        orderPageScooter.selectBlackColorScooter();
+        orderPageScooter.orderWaitPage();
+        orderPageScooter.inputCourierComment(courierComment);
+        orderPageScooter.buttonToOrder();
+        orderPageScooter.modalWindowAcceptOrder();
+        orderPageScooter.buttonYes();
+        Assert.assertThat("Проверка оформления заказа",orderPageScooter.labelOrderCompleteGetText(), CoreMatchers.containsString("Заказ оформлен"));
+    }
+
+
     @After
     public void tearDown() {
         driver.quit();

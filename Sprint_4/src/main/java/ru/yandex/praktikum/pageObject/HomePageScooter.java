@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +25,7 @@ public class HomePageScooter {
 
     public final List<String> elementsImportantList = new ArrayList<String>(Arrays.asList());// Коллекция с вопросами листа о важном
 
-    private final By headerWaitPage = By.xpath(".//*[@class='Order_Content__bmtHS']']");//Кнопка далее
+    private final By waitAboutThings = By.xpath(".//div[@class='Home_FourPart__1uthg']"); //Кнопки локаторов о важном
 
 
     public HomePageScooter(WebDriver webDriver) {
@@ -41,7 +44,13 @@ public class HomePageScooter {
 
 
     public HomePageScooter goToOrderDown() {//метод нажатия на заказать снизу
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webDriver.findElement(orderStatusButtonDown));
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].click()", webDriver.findElement(orderStatusButtonDown));
+        return this;
+    }
+
+    public HomePageScooter waitAboutThings() {//метод ожидания вопросов о важном
+        new WebDriverWait(webDriver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(waitAboutThings));
         return this;
     }
 
