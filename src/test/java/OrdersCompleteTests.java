@@ -43,7 +43,7 @@ public class OrdersCompleteTests {
     }
 
     WebDriver driver = new ChromeDriver();//Здесь подключения хром драйвер по умолчанию , можно закоментить эту строку и раскоментить строку с файрфоксом
-    //WebDriver driver = new FirefoxDriver();//Здесь можно раскоментировать строку и переключится на драйвер файрфокс
+    //WebDriver driver = new FirefoxDriver();//Здесь можно раскоментировать строку и переключится  драйвер файрфокс
 
     HomePageScooter homePageScooter = new HomePageScooter(driver);
     OrderPageScooter orderPageScooter = new OrderPageScooter(driver);
