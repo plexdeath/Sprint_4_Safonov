@@ -2,10 +2,13 @@ package ru.yandex.praktikum.pageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static java.lang.Thread.sleep;
 
 public class OrderPageScooter {
 
@@ -51,6 +54,36 @@ public class OrderPageScooter {
 
     private final By labelOrderComplete = By.xpath(".//div[text()='Заказ оформлен']"); //лэйбл Заказ оформлен
 
+    private final By errorName = By.xpath("//input[@placeholder='* Имя']/following-sibling::div"); //ошибка если введено имя неправильно
+
+    private final By errorSurname = By.xpath("//input[@placeholder='* Фамилия']/following-sibling::div"); //ошибка если введена фамилия неправильно
+
+    private final By errorAddress = By.xpath("//input[@placeholder='* Адрес: куда привезти заказ']/following-sibling::div"); //ошибка если введен адрес неправильно
+
+    private final By errorMetro = By.xpath("//input[@placeholder='* Станция метро']/following::div[text()='Выберите станцию']"); //ошибка если станция выбрана не правильно
+
+    private final By courierTelephone = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']/following-sibling::div"); //ошибка если введен некоректный номер телефона
+
+    public String courierTelephone() {
+        return webDriver.findElement(courierTelephone).getAttribute("textContent");
+    }
+
+    public String errorMetro() {
+        return webDriver.findElement(errorMetro).getAttribute("textContent");
+    }
+
+    public String errorName() {
+       return webDriver.findElement(errorName).getAttribute("textContent");
+    }
+
+    public String errorSurname() {
+        return webDriver.findElement(errorSurname).getAttribute("textContent");
+    }
+
+    public String errorAddress() {
+        return webDriver.findElement(errorAddress).getAttribute("textContent");
+    }
+
 
     public OrderPageScooter inputName(String name) {
         webDriver.findElement(inputName).sendKeys(name);
@@ -68,14 +101,16 @@ public class OrderPageScooter {
     }
 
     public OrderPageScooter dropDownMetro() {
-        webDriver.findElement(dropDownMetro).click();
+        new WebDriverWait(webDriver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(dropDownMetro)).click();
         return this;
     }
 
-    public OrderPageScooter clickMetroValue() {
-        new WebDriverWait(webDriver, Duration.ofSeconds(30))
-                .until(ExpectedConditions.visibilityOfElementLocated(clickMetroValue)).click();
+    public OrderPageScooter clickMetroValue()  {
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView()", webDriver.findElement(clickMetroValue));
+        webDriver.findElement(clickMetroValue).click();
         return this;
+
     }
 
     public OrderPageScooter inputTelephone(String telephone) {
@@ -141,7 +176,5 @@ public class OrderPageScooter {
     public String labelOrderCompleteGetText() {
         return webDriver.findElement(labelOrderComplete).getText();
     }
-
-
 
 }
