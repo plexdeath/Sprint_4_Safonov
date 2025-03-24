@@ -44,6 +44,9 @@ public class HomePageScooter {
 
     private final By picNotFound = By.xpath(".//img[@src='/assets/not-found.png']");
 
+    private static final String accordionQuestions = "accordion__heading-";
+
+    private static final String accordionAnswers = "accordion__panel-";
 
     public String picNotFound() {
        return webDriver.findElement(picNotFound).getAttribute("alt");
@@ -62,6 +65,20 @@ public class HomePageScooter {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript("arguments[0].value = '" + orderNumber + "'", inputField);
         return this;
+    }
+
+    public HomePageScooter clickAccordionQuestions(int idElement) {
+       ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webDriver.findElement(By.id(accordionQuestions + idElement)));
+        return this;
+    }
+
+    public String getTextAccordionQuestions(int idElement) {
+
+       return webDriver.findElement(By.id(accordionQuestions + idElement)).getText();
+    }
+
+    public String getTextAccordionAnswers(int idElement) {
+        return webDriver.findElement(By.id(accordionAnswers + idElement)).getText();
     }
 
 
