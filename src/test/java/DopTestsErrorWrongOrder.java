@@ -12,7 +12,7 @@ import ru.yandex.praktikum.pageObject.OrderPageScooter;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static java.lang.Thread.sleep;
+
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
